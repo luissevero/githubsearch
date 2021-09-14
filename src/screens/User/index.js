@@ -26,7 +26,6 @@ function User(props){
     useEffect(() => {
 		if(!repos[0]){
 			getUserData()
-			console.log('Carregado!')
 		}
     }, [getUserData])
 
