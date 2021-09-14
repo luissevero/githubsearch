@@ -8,6 +8,7 @@ import {
     BottomItem,
     TextBottom,
     Name,
+    Description,
     UpdatedAt
 } from './styles'
 
@@ -20,7 +21,7 @@ function CardStarred(props){
     return (
         <Container>
             <Name>{props.name}</Name>
-            <p>{props.description}</p>
+            <Description>{props.description}</Description>
             <UpdatedAt>Updated {calcDays(props.updated_at)}</UpdatedAt>
             <ContainerBottom>
                 <BottomItem>

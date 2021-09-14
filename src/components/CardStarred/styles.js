@@ -17,11 +17,6 @@ export const Container = styled.div`
     padding: 8px;
 `
 
-export const ContainerHeader = styled.div`
-    height: 80px;
-    background-color: blueviolet;
-`
-
 export const ContainerBody = styled.div`
     height: 160px;
     background-color: black;
@@ -50,7 +45,13 @@ export const Avatar = styled.img`
 `
 
 export const Name = styled.h2`
-    font-size: 20px;
+    font-size: 18px;
+`
+
+export const Description = styled.h6`
+    font-weight: 100;
+    font-size: 16px;
+    text-align: justify;
 `
 
 export const Login = styled.h4`
