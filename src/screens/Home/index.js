@@ -38,6 +38,12 @@ function Home(){
 		)
 	}
 
+	const handleKeyDown = event => {
+		if(event.key === 'Enter'){
+			searchUser()
+		}
+	}
+
     return (
         <Container className="m-2">
             <Titulo className="text-center mt-5">Github User Search</Titulo>
@@ -52,6 +58,7 @@ function Home(){
                     placeholder="Search here..."
                     aria-label="search"
 					value={search}
+					onKeyDown={handleKeyDown}
 					onChange={event => setSearch(event.currentTarget.value)}
                 />
             </InputGroup>
