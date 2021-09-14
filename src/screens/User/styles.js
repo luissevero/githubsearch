@@ -10,6 +10,24 @@ export const Titulo = styled.h1`
     margin-top: 10px;
     font-size: 24px;
 `
+
+export const ContainerNewSearch = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+`
+export const ContainerBodyNewSearch = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`
+export const NewSearch = styled.h4`
+    font-size: 18px;
+    color: black;
+    margin-top: .5rem;
+`
 export const ContainerButtons = styled.div`
     display: flex;
     align-items: center;

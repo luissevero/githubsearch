@@ -2,9 +2,14 @@ import React, {Component} from 'react'
 import { Tabs, Tab, Row, Col, FormControl } from 'react-bootstrap'
 import { 
     Container, 
-    Titulo
+    Titulo,
+	NewSearch,
+	ContainerNewSearch,
+	ContainerBodyNewSearch
 } from './styles'
 
+import { ChevronLeftOutlined } from '@material-ui/icons'
+import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import CardUser from '../../components/CardUser'
 import CardRepos from '../../components/CardRepos'
@@ -73,6 +78,14 @@ class User extends Component {
 
 				<Titulo>User {this.props.match.params.user}</Titulo>
 				<CardUser {...this.state.user} />
+				<ContainerNewSearch>
+					<Link to='/' style={{textDecoration: 'none'}} >
+						<ContainerBodyNewSearch>
+							<ChevronLeftOutlined fontSize="large" color="secondary" />
+							<NewSearch className="text-center">New search</NewSearch>
+						</ContainerBodyNewSearch>
+					</Link>
+				</ContainerNewSearch>
 				<Tabs className="mt-4 d-flex justify-content-center">
 					<Tab eventKey="repos" title="Repos">
 						<FormControl
@@ -83,7 +96,7 @@ class User extends Component {
 							onChange={event => this.setState({searchRepos: event.currentTarget.value})}
 						/>
 
-						{this.state.repos && this.state.repos.filter(each => each.name.toLowerCase().includes(this.state.searchRepos)).map(item => (
+						{this.state.repos && this.state.repos.filter(each => each.name.toLowerCase().includes(this.state.searchRepos.toLowerCase())).map(item => (
 							<CardRepos key={item.id} {...item} />
 						))}
 					</Tab>
@@ -96,7 +109,7 @@ class User extends Component {
 							onChange={event => this.setState({searchStarred: event.currentTarget.value})}
 						/>
 						<Row> 
-						{this.state.starred && this.state.starred.filter(each => each.name.toLowerCase().includes(this.state.searchStarred)).map(item => (
+						{this.state.starred && this.state.starred.filter(each => each.name.toLowerCase().includes(this.state.searchStarred.toLowerCase())).map(item => (
 							<Col xl={4} lg={4} md={6} sm={12} key={item.id}> 
 								<CardStarred {...item} />
 							</Col>
