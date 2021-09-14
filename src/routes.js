@@ -14,6 +14,7 @@ export default function Routes(){
                     component={Home}
                 />
                 <Route
+                    exact
                     path="/:user"
                     component={User}
                 />

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 
 import { 
 	Container, 
@@ -23,13 +23,8 @@ function Home(){
 
 	const [search, setSearch] = useState('')
 	const [user, setUser] = useState([])
-	const [showMessage, setShowMessage] = useState(true)
+	const [showMessage, setShowMessage] = useState(false)
 
-	
-	useEffect(() => {
-		console.log('Usuário alterado!')
-	}, [user])
-	
 	
 	async function searchUser(){
 		await api.get(`${search}`).then(
