@@ -5,12 +5,15 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 180px;
-    width: 100%;
+    align-self: center;
+    height: 200px;
+    width: 95%;
     border: 1px solid blueviolet;
     border-radius: 8px;
     margin-top: 5px;
     margin-bottom: 12px;
+    margin-left: 2px;
+    margin-right: 2px;
     padding: 8px;
 `
 
@@ -29,6 +32,15 @@ export const ContainerBottom = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    width: 70%;
+`
+
+export const BottomItem = styled.div`
+    text-align: center;
+`
+
+export const TextBottom = styled.p`
+    font-size: 14px;
 `
 
 export const Avatar = styled.img`

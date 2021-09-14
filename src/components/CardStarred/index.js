@@ -5,6 +5,8 @@ import { Star, Usb, FiberManualRecordSharp } from '@material-ui/icons'
 import {
     Container,
     ContainerBottom,
+    BottomItem,
+    TextBottom,
     Name,
     UpdatedAt
 } from './styles'
@@ -21,12 +23,18 @@ function CardStarred(props){
             <p>{props.description}</p>
             <UpdatedAt>Updated {calcDays(props.updated_at)}</UpdatedAt>
             <ContainerBottom>
-                <FiberManualRecordSharp />
-                <p>{props.language}</p>
-                <Star />
-                <p>{props.stargazers_count}</p>
-                <Usb />
-                <p>{props.forks}</p>
+                <BottomItem>
+                    <FiberManualRecordSharp  color="secondary" />
+                    <TextBottom>{props.language}</TextBottom>
+                </BottomItem>
+                <BottomItem>
+                    <Star color="primary" />
+                    <TextBottom>{props.stargazers_count}</TextBottom>
+                </BottomItem>
+                <BottomItem>
+                    <Usb />
+                    <TextBottom>{props.forks}</TextBottom>
+                </BottomItem>
                 </ContainerBottom>
         </Container>
     )

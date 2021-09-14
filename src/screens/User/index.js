@@ -27,7 +27,7 @@ function User(props){
 		if(!repos[0]){
 			getUserData()
 		}
-    }, [getUserData])
+    }, [getUserData, repos])
 
 	async function getUserData(){
 		await api.get(`${props.match.params.user}`).then(
