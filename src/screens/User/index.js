@@ -24,19 +24,22 @@ function User(props){
 	const [searchStarred, setSearchStarred] = useState('')
 
     useEffect(() => {
-        getData()
-    }, [user])
+		if(!repos[0]){
+			getUserData()
+			console.log('Carregado!')
+		}
+    }, [repos])
 
-	async function getData(){
+	async function getUserData(){
 		await setarUser()
-		await searchStarredRepos()
-		await searchUserRepos()
 	}
 
     async function setarUser(){
         await api.get(`${props.match.params.user}`).then(
-            retorno => {
-				setUser(retorno.data)
+            async retorno => {
+				await setUser(retorno.data)
+				await searchUserStarred()
+				await searchUserRepos()
 			},
 			error => {
 				setShowMessage(true)
@@ -47,10 +50,10 @@ function User(props){
         )
     }
 
-    async function searchStarredRepos(){
+    async function searchUserStarred(){
 		await api.get(`${user.login}/starred`).then(
-			retorno => {
-				setStarred(retorno.data)
+			async retorno => {
+				await setStarred(retorno.data)
 			},
 			error => {
 				setShowMessage(true)
@@ -90,7 +93,7 @@ function User(props){
 						onChange={event => setSearchRepos(event.currentTarget.value)}
                 	/>
 
-					{repos.filter(item => item.name.toLowerCase().includes(searchRepos)).map(item => (
+					{repos && repos.filter(each => each.name.toLowerCase().includes(searchRepos)).map(item => (
 						<CardRepos key={item.id} {...item} />
 					))}
 				</Tab>
@@ -103,7 +106,7 @@ function User(props){
 						onChange={event => setSearchStarred(event.currentTarget.value)}
                 	/>
 					<Row> 
-					{starred.filter(item => item.name.toLowerCase().includes(searchStarred)).map(item => (
+					{starred && starred.filter(each => each.name.toLowerCase().includes(searchStarred)).map(item => (
 						<Col xl={4} lg={4} md={6} sm={12} key={item.id}> 
 							<CardStarred {...item} />
 						</Col>
