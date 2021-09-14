@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {Component} from 'react'
 import { Tabs, Tab, Row, Col, FormControl } from 'react-bootstrap'
 import { 
     Container, 
@@ -13,109 +13,105 @@ import Message from '../../components/Message'
 
 import api from '../../services/api'
 
-function User(props){
+class User extends Component {
 
-    const [user, setUser] = useState([])
-    const [repos, setRepos] = useState([])
-    const [starred, setStarred] = useState([])
-	const [showMessage, setShowMessage] = useState(false)
-	const [redirect, setRedirect] = useState(false)
-	const [searchRepos, setSearchRepos] = useState('')
-	const [searchStarred, setSearchStarred] = useState('')
-
-    useEffect(() => {
-		if(!repos[0]){
-			getUserData()
-		}
-    }, [getUserData, repos])
-
-	async function getUserData(){
-		await api.get(`${props.match.params.user}`).then(
-            async retorno => {
-				await setUser(retorno.data)
-				await searchUserStarred()
-				await searchUserRepos()
-			},
-			error => {
-				setShowMessage(true)
-				setRedirect(true)
-				setUser([])
-
-			}
-        )
+	state = {
+		user: [],
+		repos: [],
+		starred: [],
+		showMessage: false,
+		redirect: false,
+		searchRepos: '',
+		searchStarred: ''
 	}
 
-    async function searchUserStarred(){
-		await api.get(`${user.login}/starred`).then(
-			async retorno => {
-				await setStarred(retorno.data)
-			},
-			error => {
-				setShowMessage(true)
-				setStarred([])
-			} 
-		)
-	}
-
-    async function searchUserRepos(){
-		await api.get(`${user.login}/repos`).then(
+	componentDidMount = async () => {
+		await api.get(`${this.props.match.params.user}`).then(
 			retorno => {
-				setRepos(retorno.data)
+				this.setState({user: retorno.data})
 			},
 			error => {
-				setShowMessage(true)
-				setRepos([])
+				this.setState({redirect: true, showMessage: true})
+			}
+		)
+		await this.searchUserRepos()
+		await this.searchUserStarred()
+	}
+
+    searchUserStarred = async () => {
+		await api.get(`${this.state.user.login}/starred`).then(
+			async retorno => {
+				await this.setState({starred: retorno.data})
+			},
+			error => {
+				this.setState({redirect: true, showMessage: true})
+			} 
+		)
+	}
+	
+    searchUserRepos = async () => {
+		await api.get(`${this.state.user.login}/repos`).then(
+			async retorno => {
+				await this.setState({repos: retorno.data})
+			},
+			error => {
+				this.setState({redirect: true, showMessage: true})
 			} 
 		)
 	}
 
-    return (
-        <Container>
-			
-			{redirect &&
-				<Redirect to="/" />
-			}
+	
 
-			<Titulo>User {props.match.params.user}</Titulo>
-            <CardUser {...user} />
-			<Tabs className="mt-4 d-flex justify-content-center">
-				<Tab eventKey="repos" title="Repos">
-					<FormControl
-						className="mt-3 mb-3"
-                    	placeholder="Search repos here..."
-                    	aria-label="search"
-						value={searchRepos}
-						onChange={event => setSearchRepos(event.currentTarget.value)}
-                	/>
+	render(){
 
-					{repos && repos.filter(each => each.name.toLowerCase().includes(searchRepos)).map(item => (
-						<CardRepos key={item.id} {...item} />
-					))}
-				</Tab>
-				<Tab eventKey="starred" title="Starred">
-					<FormControl
-						className="mt-3 mb-3"
-                    	placeholder="Search starred here..."
-                    	aria-label="search"
-						value={searchStarred}
-						onChange={event => setSearchStarred(event.currentTarget.value)}
-                	/>
-					<Row> 
-					{starred && starred.filter(each => each.name.toLowerCase().includes(searchStarred)).map(item => (
-						<Col xl={4} lg={4} md={6} sm={12} key={item.id}> 
-							<CardStarred {...item} />
-						</Col>
-					))}
-					</Row>
-				</Tab>
-			</Tabs>
+		return (
+			<Container>
+				
+				{this.state.redirect &&
+					<Redirect to="/" />
+				}
+
+				<Titulo>User {this.props.match.params.user}</Titulo>
+				<CardUser {...this.state.user} />
+				<Tabs className="mt-4 d-flex justify-content-center">
+					<Tab eventKey="repos" title="Repos">
+						<FormControl
+							className="mt-3 mb-3"
+							placeholder="Search repos here..."
+							aria-label="search"
+							value={this.state.searchRepos}
+							onChange={event => this.setState({searchRepos: event.currentTarget.value})}
+						/>
+
+						{this.state.repos && this.state.repos.filter(each => each.name.toLowerCase().includes(this.state.searchRepos)).map(item => (
+							<CardRepos key={item.id} {...item} />
+						))}
+					</Tab>
+					<Tab eventKey="starred" title="Starred">
+						<FormControl
+							className="mt-3 mb-3"
+							placeholder="Search starred here..."
+							aria-label="search"
+							value={this.state.searchStarred}
+							onChange={event => this.setState({searchStarred: event.currentTarget.value})}
+						/>
+						<Row> 
+						{this.state.starred && this.state.starred.filter(each => each.name.toLowerCase().includes(this.state.searchStarred)).map(item => (
+							<Col xl={4} lg={4} md={6} sm={12} key={item.id}> 
+								<CardStarred {...item} />
+							</Col>
+						))}
+						</Row>
+					</Tab>
+				</Tabs>
 
 
-			{showMessage &&
-				<Message fechar={() => setShowMessage(false)} />
-			}
-        </Container>
-    )
+				{this.state.showMessage &&
+					<Message fechar={() => this.setState({showMessage: false})} />
+				}
+			</Container>
+		)
+	}
 }
 
 export default User

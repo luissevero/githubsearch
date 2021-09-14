@@ -50,7 +50,7 @@ export const Avatar = styled.img`
 `
 
 export const Name = styled.h2`
-    font-size: 22px;
+    font-size: 20px;
 `
 
 export const Login = styled.h4`
@@ -71,5 +71,5 @@ export const Repositories = styled.div`
 `
 
 export const UpdatedAt = styled.p`
-    font-size: 18px;
+    font-size: 16px;
 `
