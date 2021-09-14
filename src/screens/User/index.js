@@ -28,14 +28,10 @@ function User(props){
 			getUserData()
 			console.log('Carregado!')
 		}
-    }, [repos])
+    }, [getUserData])
 
 	async function getUserData(){
-		await setarUser()
-	}
-
-    async function setarUser(){
-        await api.get(`${props.match.params.user}`).then(
+		await api.get(`${props.match.params.user}`).then(
             async retorno => {
 				await setUser(retorno.data)
 				await searchUserStarred()
@@ -48,7 +44,7 @@ function User(props){
 
 			}
         )
-    }
+	}
 
     async function searchUserStarred(){
 		await api.get(`${user.login}/starred`).then(
