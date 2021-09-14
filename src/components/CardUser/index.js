@@ -22,8 +22,8 @@ function CardUser(props){
         <Container>
 
             <ContainerHeader>
-                <Avatar src={props.avatar_url}/>
-                <GitHub />
+                <Avatar src={props.avatar_url} alt={props.name}/>
+                <GitHub alt="github icon"/>
             </ContainerHeader>
             <ContainerBody>
                 <PersonalInformations>

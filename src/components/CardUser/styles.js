@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     margin: auto;
-    height: 360px;
-    width: 300px;
+    height: 420px;
+    width: 340px;
     border: 1px solid;
     border-radius: 5px;
 `

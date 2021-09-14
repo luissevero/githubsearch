@@ -45,7 +45,7 @@ function Home(){
 
     return (
         <Container className="m-2">
-            <Titulo className="text-center">Teste Compasso</Titulo>
+            <Titulo className="text-center mt-5">Github User Search</Titulo>
             <InputGroup className="mb-3 p-5">
                 <InputGroup.Text id="search">
 					<Icon 

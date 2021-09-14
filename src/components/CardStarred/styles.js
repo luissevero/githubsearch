@@ -5,12 +5,13 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 120px;
+    height: 180px;
     width: 100%;
-    border-top: 1px solid;
+    border: 1px solid blueviolet;
+    border-radius: 8px;
     margin-top: 5px;
     margin-bottom: 12px;
-    padding-top: 8px;
+    padding: 8px;
 `
 
 export const ContainerHeader = styled.div`
@@ -23,6 +24,13 @@ export const ContainerBody = styled.div`
     background-color: black;
 `
 
+export const ContainerBottom = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+`
+
 export const Avatar = styled.img`
     width: 60px;
     height: 60px;
@@ -30,7 +38,7 @@ export const Avatar = styled.img`
 `
 
 export const Name = styled.h2`
-    font-size: 24px;
+    font-size: 22px;
 `
 
 export const Login = styled.h4`

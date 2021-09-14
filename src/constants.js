@@ -1,1 +1,1 @@
-export const SITE_NAME = 'Teste Compasso'
+export const SITE_NAME = 'Github Search'
